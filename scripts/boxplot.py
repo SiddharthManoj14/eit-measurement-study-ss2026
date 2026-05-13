@@ -73,7 +73,7 @@ def save_boxplots_in_blocks(data, file_name, output_folder, block_size=20):
         print("Saved:", output_file)
 
 
-folder = r'C:\Users\manoj\OneDrive\Desktop\measurements_29042026\Adjacent\rectangle\circular non conductive'
+folder = r'C:\Users\manoj\OneDrive\Desktop\measurements_29042026\Adjacent\rectangle\non-conductive'
 
 files = os.listdir(folder)
 
