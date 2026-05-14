@@ -4,6 +4,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 
+# Reads .txt files and extracts voltage values.
 def load_txt_data(file_path):
     values_all = []
 
@@ -34,7 +35,7 @@ def load_txt_data(file_path):
 
                 i += 1
 
-    return np.array(values_all)
+    return np.array(values_all)  #(N, 208)
 
 
 def save_boxplots_in_blocks(data, file_name, output_folder, block_size=20):
@@ -48,7 +49,7 @@ def save_boxplots_in_blocks(data, file_name, output_folder, block_size=20):
     save_folder = os.path.join(output_folder, "boxplots")
     os.makedirs(save_folder, exist_ok=True)
 
-    total_columns = plot_df.shape[1]
+    total_columns = plot_df.shape[1]     # No of cols.
 
     for start in range(0, total_columns, block_size):
         end = min(start + block_size, total_columns)
