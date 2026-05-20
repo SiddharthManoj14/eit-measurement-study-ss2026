@@ -5,13 +5,6 @@ from pathlib import Path
 
 import pandas as pd
 
-
-# ------------------------------------------------------------
-# Make sure Python can import from src/ when this script is run
-# as:
-#     python scripts/build_dataset.py
-# ------------------------------------------------------------
-
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
 if str(PROJECT_ROOT) not in sys.path:
