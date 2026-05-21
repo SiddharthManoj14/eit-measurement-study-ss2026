@@ -130,7 +130,7 @@ def replace_outliers_with_channel_median(
     summary_rows = []
 
     for channel_idx in range(n_channels):
-        channel_values = cleaned_data[:, channel_idx]
+        channel_values = cleaned_data[:, channel_idx].copy()
 
         outlier_mask = detect_spike_outliers(
             channel_values=channel_values,
