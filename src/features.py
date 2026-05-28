@@ -71,8 +71,11 @@ def infer_position_class(position: str) -> str:
     if "between" in position:
         return "between_centre_edge"
 
-    if "edge" in position or "electrode" in position:
+    if position == "edge" or position.startswith("edge_"):
         return "edge"
+
+    if "electrode" in position:
+        return "boundary"
 
     if "centre" in position:
         return "centre"
