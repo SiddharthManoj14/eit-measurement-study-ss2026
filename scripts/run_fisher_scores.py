@@ -29,10 +29,10 @@ FEATURE_COLUMNS = [
 def infer_injection_pattern_from_filename(file_path: Path) -> str:
     name = file_path.stem.lower()
 
-    if "adjacent" in name or "adj" in name:
+    if "adjacent" in name:
         return "Adjacent"
 
-    if "opposite" in name or "opp" in name:
+    if "opposite" in name:
         return "Opposite"
 
     if "skip" in name:
@@ -112,7 +112,7 @@ def save_overall_fisher_scores(
 
     return fisher_scores
 
-
+""" Compute per-injection Fisher scores """
 def save_fisher_scores_by_injection_pattern(
     df: pd.DataFrame,
     feature_columns: list[str],
