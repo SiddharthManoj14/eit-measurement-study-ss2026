@@ -9,6 +9,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
+from src.config import RESULTS_TABLE_DIR, RESULTS_FIGURE_DIR
 
 from src.plotting import (
     plot_feature_comparison,
@@ -17,10 +18,6 @@ from src.plotting import (
     plot_model_comparison,
     plot_models_by_injection_pattern,
 )
-
-
-RESULTS_TABLE_DIR = PROJECT_ROOT / "results" / "tables"
-RESULTS_FIGURE_DIR = PROJECT_ROOT / "results" / "figures"
 
 
 def main() -> None:

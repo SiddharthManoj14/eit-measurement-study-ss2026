@@ -11,30 +11,14 @@ if str(PROJECT_ROOT) not in sys.path:
 
 from src.classification import run_domain_shape_classification
 
-
-# ------------------------------------------------------------
-# Paths
-# ------------------------------------------------------------
-
-FEATURE_CSV_PATH = (
-    PROJECT_ROOT
-    / "data"
-    / "processed"
-    / "features"
-    / "engineered_features.csv"
+from src.config import (
+    ENGINEERED_FEATURES_PATH,
+    RESULTS_TABLE_DIR,
+    RESULTS_FIGURE_DIR,
 )
 
-RESULTS_TABLE_DIR = (
-    PROJECT_ROOT
-    / "results"
-    / "tables"
-)
+FEATURE_CSV_PATH = ENGINEERED_FEATURES_PATH
 
-RESULTS_FIGURE_DIR = (
-    PROJECT_ROOT
-    / "results"
-    / "figures"
-)
 
 
 def main() -> None:

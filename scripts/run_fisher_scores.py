@@ -8,22 +8,17 @@ import matplotlib.pyplot as plt
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.append(str(PROJECT_ROOT))
 
+from src.config import (
+    ENGINEERED_FEATURES_PATH,
+    RESULTS_TABLE_DIR,
+    RESULTS_FIGURE_DIR,
+    TARGET_COLUMN,
+    GROUP_COLUMN,
+    FEATURE_COLUMNS,
+)
+
 from src.metrics import compute_fisher_scores
 
-
-FEATURES_DIR = PROJECT_ROOT / "data" / "processed" / "features"
-RESULTS_TABLES_DIR = PROJECT_ROOT / "results" / "tables"
-RESULTS_FIGURES_DIR = PROJECT_ROOT / "results" / "figures"
-
-TARGET_COLUMN = "tank_shape"
-GROUP_COLUMN = "injection_pattern"
-
-FEATURE_COLUMNS = [
-    "bv_min",
-    "bv_avg",
-    "bv_range",
-    "bv_avg_variation",
-]
 
 
 def infer_injection_pattern_from_filename(file_path: Path) -> str:
@@ -41,7 +36,7 @@ def infer_injection_pattern_from_filename(file_path: Path) -> str:
     return "unknown"
 
 def load_feature_data() -> pd.DataFrame:
-    input_file = FEATURES_DIR / "engineered_features.csv"
+    input_file = ENGINEERED_FEATURES_PATH
 
     if not input_file.exists():
         raise FileNotFoundError(
@@ -105,7 +100,7 @@ def save_overall_fisher_scores(
     fisher_scores.insert(2, "n_samples", len(df))
     fisher_scores.insert(3, "n_classes", df[TARGET_COLUMN].nunique())
 
-    output_file = RESULTS_TABLES_DIR / "fisher_scores_domain_shape_overall.csv"
+    output_file = RESULTS_TABLE_DIR / "fisher_scores_domain_shape_overall.csv"
     fisher_scores.to_csv(output_file, index=False)
 
     print(f"Saved overall Fisher scores: {output_file}")
@@ -145,7 +140,7 @@ def save_fisher_scores_by_injection_pattern(
 
     result = pd.concat(all_scores, ignore_index=True)
 
-    output_file = RESULTS_TABLES_DIR / "fisher_scores_domain_shape_by_injection.csv"
+    output_file = RESULTS_TABLE_DIR / "fisher_scores_domain_shape_by_injection.csv"
     result.to_csv(output_file, index=False)
 
     print(f"Saved per-injection Fisher scores: {output_file}")
@@ -164,7 +159,7 @@ def plot_overall_fisher_scores(overall_scores: pd.DataFrame) -> None:
     plt.ylabel("Feature")
     plt.tight_layout()
 
-    output_file = RESULTS_FIGURES_DIR / "fisher_scores_domain_shape_overall.png"
+    output_file = RESULTS_FIGURE_DIR / "fisher_scores_domain_shape_overall.png"
     plt.savefig(output_file, dpi=300, bbox_inches="tight")
     plt.close()
 
@@ -193,7 +188,7 @@ def plot_fisher_scores_by_injection(per_injection_scores: pd.DataFrame) -> None:
     plt.xticks(rotation=30, ha="right")
     plt.tight_layout()
 
-    output_file = RESULTS_FIGURES_DIR / "fisher_scores_domain_shape_by_injection.png"
+    output_file = RESULTS_FIGURE_DIR / "fisher_scores_domain_shape_by_injection.png"
     plt.savefig(output_file, dpi=300, bbox_inches="tight")
     plt.close()
 
@@ -201,8 +196,8 @@ def plot_fisher_scores_by_injection(per_injection_scores: pd.DataFrame) -> None:
 
 
 def main() -> None:
-    RESULTS_TABLES_DIR.mkdir(parents=True, exist_ok=True)
-    RESULTS_FIGURES_DIR.mkdir(parents=True, exist_ok=True)
+    RESULTS_TABLE_DIR.mkdir(parents=True, exist_ok=True)
+    RESULTS_FIGURE_DIR.mkdir(parents=True, exist_ok=True)
 
     df = load_feature_data()
 

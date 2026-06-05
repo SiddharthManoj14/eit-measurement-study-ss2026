@@ -12,6 +12,7 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 
+
 from src.io_utils import (
     find_txt_files,
     load_txt_file_with_report,
@@ -26,44 +27,19 @@ from src.features import (
     get_injection_pattern_from_path,
 )
 
-
-RAW_DATA_DIR = PROJECT_ROOT / "data" / "raw"
-
-FEATURE_OUTPUT_PATH = (
-    PROJECT_ROOT
-    / "data"
-    / "processed"
-    / "features"
-    / "engineered_features.csv"
+from src.config import (
+    RAW_DATA_DIR,
+    ENGINEERED_FEATURES_PATH,
+    SUMMARIES_DIR,
+    MIN_VALID_VOLTAGE,
+    MAX_VALID_VOLTAGE,
 )
 
-OUTLIER_SUMMARY_PATH = (
-    PROJECT_ROOT
-    / "data"
-    / "processed"
-    / "summaries"
-    / "outlier_summary.csv"
-)
+FEATURE_OUTPUT_PATH = ENGINEERED_FEATURES_PATH
 
-PARSING_REPORT_PATH = (
-    PROJECT_ROOT
-    / "data"
-    / "processed"
-    / "summaries"
-    / "parsing_report.csv"
-)
-
-BUILD_SUMMARY_PATH = (
-    PROJECT_ROOT
-    / "data"
-    / "processed"
-    / "summaries"
-    / "dataset_build_summary.csv"
-)
-
-
-MIN_VALID_VOLTAGE = 0.0
-MAX_VALID_VOLTAGE = 5.0
+OUTLIER_SUMMARY_PATH = SUMMARIES_DIR / "outlier_summary.csv"
+PARSING_REPORT_PATH = SUMMARIES_DIR / "parsing_report.csv"
+BUILD_SUMMARY_PATH = SUMMARIES_DIR / "dataset_build_summary.csv"
 
 
 def build_dataset() -> None:

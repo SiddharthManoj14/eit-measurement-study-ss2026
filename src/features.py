@@ -5,21 +5,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-
-EXPECTED_CHANNELS_BY_PATTERN = {
-    "Adjacent": 208,
-    "Opposite": 192,
-    "Skip3": 192,
-}
-
-
-FEATURE_COLUMNS = [
-    "bv_min",
-    "bv_avg",
-    "bv_range",
-    "bv_avg_variation",
-]
-
+from src.config import EXPECTED_CHANNELS_BY_PATTERN, FEATURE_COLUMNS
 
 def normalize_text(value: str) -> str:
     value = str(value).strip().lower()

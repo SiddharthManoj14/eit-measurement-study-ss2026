@@ -18,17 +18,13 @@ from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC
 
-
-FEATURE_COLUMNS = [
-    "bv_min",
-    "bv_avg",
-    "bv_range",
-    "bv_avg_variation",
-]
-
-TARGET_COLUMN = "tank_shape"
-GROUP_COLUMN = "injection_pattern"
-
+from src.config import (
+    FEATURE_COLUMNS,
+    TARGET_COLUMN,
+    GROUP_COLUMN,
+    RANDOM_STATE,
+    DEFAULT_CV_FOLDS,
+)
 
 def load_data(feature_csv_path: str | Path) -> pd.DataFrame:
     df = pd.read_csv(feature_csv_path)
@@ -41,7 +37,7 @@ def load_data(feature_csv_path: str | Path) -> pd.DataFrame:
     return df
 
 
-def get_models(random_state: int = 42) -> dict:
+def get_models(random_state: int = RANDOM_STATE) -> dict:
     return {
         "Logistic Regression": make_pipeline(
             StandardScaler(),
@@ -79,8 +75,8 @@ def get_feature_sets() -> list[tuple[str, list[str]]]:
 
 def make_cv(
     y: pd.Series,
-    n_splits: int = 5,
-    random_state: int = 42,
+    n_splits: int = DEFAULT_CV_FOLDS,
+    random_state: int = RANDOM_STATE,
 ) -> StratifiedKFold:
     min_class_count = y.value_counts().min()
     n_splits = min(n_splits, min_class_count)
